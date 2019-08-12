@@ -22,4 +22,5 @@ private:
 	void AimTowardsCrosshair();
 	// Return an OUT parameter, true if hit landscape
 	bool GetSightRayHitLocation(FVector&) const;
+	bool GetLookDirection(FVector2D, FVector&) const;
 };
