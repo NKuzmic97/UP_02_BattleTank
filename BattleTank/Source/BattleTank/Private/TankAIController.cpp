@@ -8,6 +8,17 @@ void ATankAIController::BeginPlay()
 	else UE_LOG(LogTemp,Error,TEXT("AIController:: No Player Tank is found!"))
 }
 
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank()) {
+		GetPossessedByAITank()->AimAt(GetPlayerTank()->GetActorLocation());
+		// TODO Move towards the players
+		// Aim towards the player
+		// Fire if ready
+	}
+}
+
 ATank* ATankAIController::GetPossessedByAITank() const {
 	return Cast<ATank>(GetPawn());
 }
