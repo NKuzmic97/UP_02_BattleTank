@@ -7,7 +7,7 @@ void ATankPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	auto ControlledTank = GetControlledTank();
-	if (ControlledTank) UE_LOG(LogTemp, Warning, TEXT("Possessed Tank: %s"), *ControlledTank->GetName())
+	if (ControlledTank) UE_LOG(LogTemp, Warning, TEXT("Player Tank: %s"), *ControlledTank->GetName())
 	else UE_LOG(LogTemp, Error, TEXT("No Tank possessed!"))
 }
 
