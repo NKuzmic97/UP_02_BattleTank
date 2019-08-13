@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "Public/Tank.h"
 #include "Engine/World.h"
 #include "TankPlayerController.generated.h" // Must be last include
 
@@ -20,7 +19,7 @@ private:
 	float CrosshairYLocation = 0.3333f;
 	UPROPERTY(EditAnywhere)
 	float LineTraceRange = 1000000;
-	ATank* GetControlledTank() const;
+	class ATank* GetControlledTank() const;
 	// Start the tank moving the barrel so that a shot would hit where the crosshair intersects the world
 	void AimTowardsCrosshair();
 	// Return an OUT parameter, true if hit landscape

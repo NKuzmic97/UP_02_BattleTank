@@ -21,7 +21,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	UTankAimingComponent* TankAimingComponent = nullptr;
+	class UTankAimingComponent* TankAimingComponent = nullptr;
 
 public:	
 	// Called every frame

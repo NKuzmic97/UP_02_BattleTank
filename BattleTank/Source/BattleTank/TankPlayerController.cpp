@@ -1,4 +1,5 @@
 #include "TankPlayerController.h"
+#include "Public/Tank.h"
 
 void ATankPlayerController::BeginPlay()
 {
