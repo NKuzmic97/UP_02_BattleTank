@@ -1,5 +1,6 @@
 #include "Public/TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -22,19 +23,20 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
-		ESuggestProjVelocityTraceOption::DoNotTrace
+		false,
+		0.f,
+		0.f,
+		ESuggestProjVelocityTraceOption::DoNotTrace// Parameter must be present to prevent BUG
 	);
-
+	auto Time = GetWorld()->GetTimeSeconds();
 	if(bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found."), Time);
+		UE_LOG(LogTemp, Warning, TEXT("%s %f: Aim solution found."),*GetOwner()->GetName(), Time);
 	}
 	else {
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solution found."), Time);
+		UE_LOG(LogTemp, Warning, TEXT("%s %f: Aim solution not found."), *GetOwner()->GetName(), Time);
 	}
 }
 
