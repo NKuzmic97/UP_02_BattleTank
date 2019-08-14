@@ -29,18 +29,15 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		0.f,
 		ESuggestProjVelocityTraceOption::DoNotTrace// Parameter must be present to prevent BUG
 	);
-	auto Time = GetWorld()->GetTimeSeconds();
 	if(bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 		MoveTurretTowards(AimDirection);
-		UE_LOG(LogTemp, Warning, TEXT("%s %f: Aim solution found."),*GetOwner()->GetName(), Time);
 	}
 	else {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		UE_LOG(LogTemp, Warning, TEXT("%s %f: Aim solution not found."), *GetOwner()->GetName(), Time);
 	}
 }
 
