@@ -11,5 +11,5 @@ public:
 	void TurnAzimuth(float RelativeSpeed);
 private:
 	UPROPERTY(EditAnywhere,category="Setup")
-	float MaxAzimuthDegreesPerSecond = 10.f;
+	float MaxAzimuthDegreesPerSecond = 25.f;
 };

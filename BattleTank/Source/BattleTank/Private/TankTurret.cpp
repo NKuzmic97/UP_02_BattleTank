@@ -6,6 +6,5 @@ void UTankTurret::TurnAzimuth(float RelativeSpeed) {
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, +1);
 	auto TurnChange = RelativeSpeed * MaxAzimuthDegreesPerSecond * GetWorld()->GetDeltaSeconds();
 	auto RawNewTurn = RelativeRotation.Yaw + TurnChange;
-	auto Turn = RawNewTurn;
 	SetRelativeRotation(FRotator(0,RawNewTurn, 0));
 }
