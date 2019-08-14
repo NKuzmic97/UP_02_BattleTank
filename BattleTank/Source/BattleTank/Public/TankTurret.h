@@ -10,6 +10,7 @@ class BATTLETANK_API UTankTurret : public UStaticMeshComponent
 public:
 	void TurnAzimuth(float RelativeSpeed);
 private:
+	UTankTurret();
 	UPROPERTY(EditAnywhere,category="Setup")
 	float MaxAzimuthDegreesPerSecond = 25.f;
 };

@@ -11,6 +11,7 @@ public:
 	// -1 is max downward speed, +1 is max up movement
 	void Elevate(float RelativeSpeed);
 private:
+	UTankBarrel();
 	UPROPERTY(EditAnywhere, Category = Setup)
 	float MaxDegreesPerSecond = 10.f;
 	UPROPERTY(EditAnywhere, Category = Setup)
