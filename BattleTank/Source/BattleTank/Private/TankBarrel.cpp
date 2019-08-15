@@ -3,13 +3,6 @@
 #include "TankBarrel.h"
 
 UTankBarrel::UTankBarrel() {
-	// Workaround for blueprint bug forgetting static mesh when this class is recompiled
-	// https://issues.unrealengine.com/issue/UE-63298
-	if (!GetStaticMesh()) {
-		UE_LOG(LogTemp, Warning, TEXT("Barrel loading mesh at runtime."));
-		UStaticMesh* Mesh = LoadObject<UStaticMesh>(nullptr, TEXT("/Game/Tank/tank_fbx_Barrel.fbx"));
-		SetStaticMesh(Mesh ? Mesh : nullptr);
-	}
 }
 
 void UTankBarrel::Elevate(float RelativeSpeed) {
