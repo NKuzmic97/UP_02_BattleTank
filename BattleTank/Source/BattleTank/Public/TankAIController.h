@@ -13,4 +13,7 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	void BeginPlay() override;
 	void Tick(float) override;
+private:
+	// How close can the AI tank get
+	float AcceptanceRadius = 3000;
 };
