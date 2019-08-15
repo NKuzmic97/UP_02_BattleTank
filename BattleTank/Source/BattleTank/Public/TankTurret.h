@@ -11,6 +11,6 @@ public:
 	void TurnAzimuth(float RelativeSpeed);
 private:
 	UTankTurret();
-	UPROPERTY(EditAnywhere,category="Setup")
+	UPROPERTY(EditDefaultsOnly,category="Setup")
 	float MaxAzimuthDegreesPerSecond = 25.f;
 };
