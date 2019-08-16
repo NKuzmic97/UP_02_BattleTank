@@ -12,6 +12,9 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 public:
 	void BeginPlay() override;
 	void Tick(float) override;
+protected:
+	UFUNCTION(BlueprintCallable, category = "Setup")
+	class ATank* GetControlledTank() const;
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5f;
@@ -19,7 +22,6 @@ private:
 	float CrosshairYLocation = 0.3333f;
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000;
-	class ATank* GetControlledTank() const;
 	// Start the tank moving the barrel so that a shot would hit where the crosshair intersects the world
 	void AimTowardsCrosshair();
 	// Return an OUT parameter, true if hit landscape
