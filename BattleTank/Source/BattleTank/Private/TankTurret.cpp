@@ -1,13 +1,6 @@
 #include "TankTurret.h"
 
 UTankTurret::UTankTurret() {
-	// Workaround for blueprint bug forgetting static mesh when this class is recompiled
-	// https://issues.unrealengine.com/issue/UE-63298
-	if (!GetStaticMesh()) {
-		UE_LOG(LogTemp, Warning, TEXT("Turret loading mesh at runtime."));
-		UStaticMesh* Mesh = LoadObject<UStaticMesh>(nullptr, TEXT("/Game/Tank/tank_fbx_Turret.fbx"));
-		SetStaticMesh(Mesh ? Mesh : nullptr);
-	}
 }
 
 void UTankTurret::TurnAzimuth(float RelativeSpeed) {
