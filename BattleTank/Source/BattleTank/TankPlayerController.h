@@ -9,7 +9,6 @@
 * Responsible for helping the player aim.
 */
 
-class ATank;
 class UTankAimingComponent;
 
 UCLASS()
@@ -20,8 +19,6 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float) override;
 protected:
-	UFUNCTION(BlueprintCallable, category = "Setup")
-	ATank* GetControlledTank() const;
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 private:
@@ -31,6 +28,7 @@ private:
 	float CrosshairYLocation = 0.3333f;
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000;
+	UTankAimingComponent* AimingComponent = nullptr;
 	// Start the tank moving the barrel so that a shot would hit where the crosshair intersects the world
 	void AimTowardsCrosshair();
 	// Return an OUT parameter, true if hit landscape
