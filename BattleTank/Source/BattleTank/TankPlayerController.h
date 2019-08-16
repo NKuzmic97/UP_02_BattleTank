@@ -5,16 +5,25 @@
 #include "Engine/World.h"
 #include "TankPlayerController.generated.h" // Must be last include
 
+/**
+* Responsible for helping the player aim.
+*/
+
+class ATank;
+class UTankAimingComponent;
+
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
-	void BeginPlay() override;
-	void Tick(float) override;
+	virtual void BeginPlay() override;
+	virtual void Tick(float) override;
 protected:
 	UFUNCTION(BlueprintCallable, category = "Setup")
-	class ATank* GetControlledTank() const;
+	ATank* GetControlledTank() const;
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5f;

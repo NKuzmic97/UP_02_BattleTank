@@ -31,7 +31,7 @@ public:
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "Status")
-		EFiringStatus FiringStatus = EFiringStatus::Reloading;
+		EFiringStatus FiringStatus = EFiringStatus::Locked;
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
