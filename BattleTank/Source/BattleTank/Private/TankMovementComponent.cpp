@@ -10,13 +10,12 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throw) {
-	Throw = Throw / 2;
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
-	// TODO prevet double-spped to dual control use
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw) {
+	Throw /= 2;
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
