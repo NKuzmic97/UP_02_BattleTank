@@ -7,12 +7,14 @@
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false; 
-
-	// ...
+	PrimaryComponentTick.bCanEverTick = true; 
 }
+
+void UTankAimingComponent::BeginPlay() {
+	// So that first fire is after initial reload
+	LastFireTime = FPlatformTime::Seconds();
+}
+
 void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet)
 {
 	Barrel = BarrelToSet;
@@ -47,6 +49,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	}
 }
 
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+{
+	if (bool bisReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSecond)
+		FiringStatus = EFiringStatus::Reloading;
+	// TODO Handle aiming and locked states;
+}
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	if (!ensure(Barrel && Turret)) return;
 	// Workout difference between current barrel rotation and AimDirection
@@ -59,16 +68,17 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 
 
 void UTankAimingComponent::Fire() {
-	if (!ensure(Barrel && ProjectileBlueprint)) return;
-	bool bisReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSecond;
-	if (bisReloaded) {
+
+	if (FiringStatus != EFiringStatus::Reloading) {
+		if (!ensure(Barrel)) return;
+		if (!ensure(ProjectileBlueprint)) return;
 		// Spawn a projectile at the socket location at the barrel
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),
 			Barrel->GetSocketRotation(FName("Projectile"))
 			);
-		Projectile->LaunchProjectile(4000.f);
+		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 	}
 }

@@ -34,8 +34,10 @@ public:
 	void Fire();
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "Status")
-	EFiringStatus FiringStatus = EFiringStatus::Locked;
+	EFiringStatus FiringStatus = EFiringStatus::Reloading;
 private:
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	float LaunchSpeed = 4000;
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
