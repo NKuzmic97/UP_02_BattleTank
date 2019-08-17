@@ -42,6 +42,8 @@ private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 	void MoveBarrelTowards(FVector AimDirection);
+	bool IsBarrelMoving();
+	FVector AimDirection;
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ReloadTimeInSecond = 3;
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
