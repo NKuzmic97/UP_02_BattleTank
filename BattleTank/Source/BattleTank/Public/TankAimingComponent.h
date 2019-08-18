@@ -36,13 +36,14 @@ public:
 	void Fire();
 	EFiringStatus GetFiringStatus() const;
 	UFUNCTION(BlueprintCallable, Category = "Firing")
-	int GetAmmoLeft() const;
+	int32 GetAmmoLeft() const;
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetProjectileBlueprint(TSubclassOf<AProjectile> Projectile);
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "Status")
 	EFiringStatus FiringStatus = EFiringStatus::Reloading;
-	int Ammo = 3;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	int32 Ammo = 3;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000;
 private:
