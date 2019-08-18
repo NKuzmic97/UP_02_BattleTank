@@ -19,6 +19,16 @@ EFiringStatus UTankAimingComponent::GetFiringStatus() const {
 	return FiringStatus;
 }
 
+int UTankAimingComponent::GetAmmoLeft() const
+{
+	return Ammo;
+}
+
+void UTankAimingComponent::SetProjectileBlueprint(TSubclassOf<AProjectile> Projectile)
+{
+	ProjectileBlueprint = Projectile;
+}
+
 void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet)
 {
 	Barrel = BarrelToSet;
@@ -55,7 +65,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
 {
-	if (bool bisReloaded = (FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSecond)
+	if (GetAmmoLeft() <= 0)
+		FiringStatus = EFiringStatus::NoAmmo;
+	else if (bool bisReloaded = (FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSecond)
 		FiringStatus = EFiringStatus::Reloading;
 	else if (IsBarrelMoving())
 		FiringStatus = EFiringStatus::Aiming;
@@ -82,7 +94,7 @@ bool UTankAimingComponent::IsBarrelMoving()
 
 void UTankAimingComponent::Fire() {
 
-	if (FiringStatus != EFiringStatus::Reloading) {
+	if (FiringStatus == EFiringStatus::Locked || FiringStatus == EFiringStatus::Aiming) {
 		if (!ensure(Barrel)) return;
 		if (!ensure(ProjectileBlueprint)) return;
 		// Spawn a projectile at the socket location at the barrel
@@ -93,6 +105,7 @@ void UTankAimingComponent::Fire() {
 			);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		Ammo--;
 	}
 }
 
