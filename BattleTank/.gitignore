@@ -1,5 +1,6 @@
 # Visual Studio 2015 user specific files
 .vs/
+BattleTank/.vs/
 
 # Visual Studio 2015 database file
 *.VC.db
@@ -54,9 +55,6 @@ Plugins/*/Binaries/*
 
 # Builds
 Build/*
-
-# StarterContent/
-StarterContent/
 
 # Whitelist PakBlacklist-<BuildConfiguration>.txt files
 !Build/*/
