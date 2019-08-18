@@ -32,6 +32,7 @@ public:
 	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable)
 	void Fire();
+	EFiringStatus GetFiringStatus() const;
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "Status")
 	EFiringStatus FiringStatus = EFiringStatus::Reloading;
