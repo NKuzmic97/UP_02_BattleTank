@@ -43,9 +43,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, category = "Status")
 	EFiringStatus FiringStatus = EFiringStatus::Reloading;
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-	int32 Ammo = 3;
+	int32 Ammo = 20;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 4000;
+	float LaunchSpeed = 6000;
 private:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
