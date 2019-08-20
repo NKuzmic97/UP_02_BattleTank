@@ -17,9 +17,10 @@ class BATTLETANK_API ATank : public APawn
 private:	
 	ATank();
 	UPROPERTY(EditDefaultsOnly,Category="Setup")
-	int32 StartingHealth = 100;
+	int32 StartingHealth;
 	UPROPERTY(VisibleAnywhere,Category = "Health")
-	int32 CurrentHealth = StartingHealth;
+	int32 CurrentHealth = 100;
+	void BeginPlay() override;
 public:
 	FTankDelegate OnDeath;
 	// Return current health as a percentage of starting health, between 0 and 1

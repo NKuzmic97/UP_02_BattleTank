@@ -17,7 +17,7 @@ void ATankAIController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
-	if (!ensure(PlayerTank && GetPawn())) return;
+	if (!(PlayerTank && GetPawn())) return;
 
 	// Move towards the player
 	MoveToActor(PlayerTank, AcceptanceRadius); // TODO check radius in cm
@@ -40,5 +40,6 @@ void ATankAIController::SetPawn(APawn * InPawn)
 }
 
 void ATankAIController::OnPossessedTankDeath(){
-	UE_LOG(LogTemp, Warning, TEXT("Death received."));
+	if (!GetPawn()) return;
+	GetPawn()->DetachFromControllerPendingDestroy();
 }

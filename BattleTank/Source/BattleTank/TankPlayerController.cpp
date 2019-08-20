@@ -1,4 +1,5 @@
 #include "TankPlayerController.h"
+#include "Tank.h"
 #include "Public/TankAimingComponent.h"
 
 void ATankPlayerController::BeginPlay()
@@ -7,6 +8,9 @@ void ATankPlayerController::BeginPlay()
 	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) return;
 	FoundAimingComponent(AimingComponent);
+
+	auto PlayerTank = Cast<ATank>(GetPawn());
+	if (PlayerTank) PlayerTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPlayerTankDeath);
 }
 
 void ATankPlayerController::Tick(float DeltaTime){
@@ -15,7 +19,7 @@ void ATankPlayerController::Tick(float DeltaTime){
 }
 
 void ATankPlayerController::AimTowardsCrosshair() {
-	if (!ensure(GetPawn())) return;
+	if (!(GetPawn())) return;
 	FVector HitLocation; // OUT parameter
 	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
 	if (bGotHitLocation) { // Has "side-effect", is going to line trace
@@ -61,4 +65,12 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector& HitLocation,FVecto
 		}
 	HitLocation = FVector(0);
 		return false; // Line trace FAILED
+}
+
+void ATankPlayerController::OnPlayerTankDeath()
+{
+	if (GetPawn()) {
+		UE_LOG(LogTemp, Warning, TEXT("I'm dying! Arrrrrrghhhhhhhh!"));
+		StartSpectatingOnly();
+	}
 }

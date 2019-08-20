@@ -35,4 +35,6 @@ private:
 	bool GetSightRayHitLocation(FVector&) const;
 	bool GetLookDirection(FVector2D, FVector&) const;
 	bool GetLookVectorHitLocation(FVector&,FVector) const;
+	UFUNCTION()
+	void OnPlayerTankDeath();
 };
