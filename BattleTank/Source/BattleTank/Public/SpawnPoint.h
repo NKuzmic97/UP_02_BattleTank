@@ -25,6 +25,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-		TSubclassOf<AActor> SpawnClass;
+	TSubclassOf<AActor> SpawnClass;
 		
 };
